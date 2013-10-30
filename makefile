@@ -22,7 +22,7 @@ clean:
 	rm gdmshelltheme
 	rm get_gdm
 
-install:
+install-common:
 	install --mode=755 -D gdm3setup-daemon $(DESTDIR)/usr/bin/gdm3setup-daemon
 	install --mode=755 -D start-gdm3setup-daemon $(DESTDIR)/usr/bin/
 	install --mode=755 -D gdmlogin $(DESTDIR)/usr/bin/
@@ -33,10 +33,8 @@ install:
 	install -D apps.nano77.gdm3setup.service $(DESTDIR)/usr/share/dbus-1/services/apps.nano77.gdm3setup.service
 	install -D apps.nano77.gdm3setup.conf $(DESTDIR)/etc/dbus-1/system.d/apps.nano77.gdm3setup.conf
 	install -D apps.nano77.gdm3setup.policy $(DESTDIR)/usr/share/polkit-1/actions/apps.nano77.gdm3setup.policy
-	install -d $(DESTDIR)/usr/lib/python2.7/site-packages/
-	cp -r GdmSetup $(DESTDIR)/usr/lib/python2.7/site-packages/
 
-uninstall:
+uninstall-common:
 	rm $(DESTDIR)/usr/bin/gdm3setup-daemon
 	rm $(DESTDIR)/usr/bin/start-gdm3setup-daemon
 	rm $(DESTDIR)/usr/bin/gdmlogin
@@ -47,5 +45,22 @@ uninstall:
 	rm $(DESTDIR)/usr/share/dbus-1/services/apps.nano77.gdm3setup.service 
 	rm $(DESTDIR)/etc/dbus-1/system.d/apps.nano77.gdm3setup.conf 
 	rm $(DESTDIR)/usr/share/polkit-1/actions/apps.nano77.gdm3setup.policy 
+
+install:
+	make install-common
+	install -d $(DESTDIR)/usr/lib/python2.7/site-packages/
+	cp -r GdmSetup $(DESTDIR)/usr/lib/python2.7/site-packages/
+
+uninstall:
+	make uninstall-common
 	rm -r $(DESTDIR)/usr/lib/python2.7/site-packages/GdmSetup
+
+install-debian:
+	make install-common
+	install -d $(DESTDIR)/usr/lib/python2.7/dist-packages/
+	cp -r GdmSetup $(DESTDIR)/usr/lib/python2.7/dist-packages/
+
+uninstall-debian:
+	make uninstall-common
+	rm -r $(DESTDIR)/usr/lib/python2.7/dist-packages/GdmSetup
 

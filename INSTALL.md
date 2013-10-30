@@ -17,10 +17,13 @@ Debian : `make debian`
 Install
 -------
 
-`make DESTDIR=`
+Standard : `make DESTDIR=`
 *'Your desired destination'*
 `install`
 
+Debian/Ubuntu : `make DESTDIR=`
+*'Your desired destination'*
+`install-debian`
 
 
 
