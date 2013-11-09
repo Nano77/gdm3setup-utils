@@ -40,6 +40,8 @@ SetSmartcardAuthentication = proxy.get_dbus_method('SetSmartcardAuthentication',
 GetSmartcardAuthentication = proxy.get_dbus_method('GetSmartcardAuthentication','apps.nano77.gdm3setup')
 SetAllowedFailures = proxy.get_dbus_method('SetAllowedFailures', 'apps.nano77.gdm3setup')
 GetAllowedFailures = proxy.get_dbus_method('GetAllowedFailures', 'apps.nano77.gdm3setup')
+GetLockScreenBackground = proxy.get_dbus_method('GetLockScreenBackground', 'apps.nano77.gdm3setup')
+SetLockScreenBackground = proxy.get_dbus_method('SetLockScreenBackground', 'apps.nano77.gdm3setup')
 StopDaemon = proxy.get_dbus_method('StopDaemon', 'apps.nano77.gdm3setup')
 
 SetAutoLoginState = proxy.get_dbus_method('SetAutoLoginState', 'apps.nano77.gdm3setup')

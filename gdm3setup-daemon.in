@@ -576,6 +576,24 @@ class GDM3SetupDBusService(dbus.service.Object):
 		else :
 			return False
 
+	@dbus.service.method('apps.nano77.gdm3setup','','s',sender_keyword='sender', connection_keyword='connexion')
+	def GetLockScreenBackground(self,sender=None, connexion=None):
+		subprocess.call("su - %GDM_USER% -s /bin/sh -c 'LANG="+LANG+" get_gdm'",shell=True)
+		SCREENSAVER_PICTURE = unquote(GetValue("/tmp/GET_GDM","SCREENSAVER_PICTURE",""))
+		os.remove("/tmp/GET_GDM")
+		SCREENSAVER_PICTURE = Gio.File.new_for_uri(SCREENSAVER_PICTURE).get_path()
+		return SCREENSAVER_PICTURE
+
+	@dbus.service.method('apps.nano77.gdm3setup','s','b',sender_keyword='sender', connection_keyword='connexion')
+	def SetLockScreenBackground(self,SCREENSAVER_PICTURE,sender=None, connexion=None):
+		if self.policykit_test(sender,connexion,'apps.nano77.gdm3setup.set') :
+			bus_adrress , bus_pid = Get_Bus()
+			SCREENSAVER_PICTURE = Gio.File.new_for_path(SCREENSAVER_PICTURE).get_uri()
+			subprocess.call('su - %GDM_USER% -s /bin/bash -c "LANG='+LANG+' DBUS_SESSION_BUS_ADDRESS='+bus_adrress+' DBUS_SESSION_BUS_PID='+bus_pid+' set_gdm -n SCREENSAVER_PICTURE -v '+"'"+str(SCREENSAVER_PICTURE)+"'"+'"',shell=True)
+			return True
+		else :
+			return False
+
 	@dbus.service.method('apps.nano77.gdm3setup',sender_keyword='sender', connection_keyword='connexion')
 	def StopDaemon(self,sender=None, connexion=None):
 		loop.quit()
