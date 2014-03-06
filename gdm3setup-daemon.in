@@ -210,7 +210,7 @@ class GDM3SetupDBusService(dbus.service.Object):
 		return FONT
 
 	@dbus.service.method('apps.nano77.gdm3setup','s','b',sender_keyword='sender', connection_keyword='connexion')
-	def SetCursorTheme(self,CURSOR,sender=None, connexion=None):
+	def SetCursorTheme(self,CURSOR_THEME,sender=None, connexion=None):
 		if self.policykit_test(sender,connexion,'apps.nano77.gdm3setup.set') :
 			bus_adrress , bus_pid = Get_Bus()
 			subprocess.call('su - %GDM_USER% -s /bin/bash -c "LANG='+LANG+' DBUS_SESSION_BUS_ADDRESS='+bus_adrress+' DBUS_SESSION_BUS_PID='+bus_pid+' set_gdm -n CURSOR_THEME -v '+"'"+CURSOR_THEME+"'"+'"',shell=True)
