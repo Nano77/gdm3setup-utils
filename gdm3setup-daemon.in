@@ -395,7 +395,6 @@ class GDM3SetupDBusService(dbus.service.Object):
 		else :
 			return "ERROR : YOU ARE NOT ALLOWED !"
 
-
 	@dbus.service.method('apps.nano77.gdm3setup','','as',sender_keyword='sender', connection_keyword='connexion')
 	def GetAutoLogin(self,sender=None, connexion=None):
 		AutomaticLoginEnable = str_to_bool(GetConfValue("AutomaticLoginEnable","False"))
@@ -590,6 +589,22 @@ class GDM3SetupDBusService(dbus.service.Object):
 			bus_adrress , bus_pid = Get_Bus()
 			SCREENSAVER_PICTURE = Gio.File.new_for_path(SCREENSAVER_PICTURE).get_uri()
 			subprocess.call('su - %GDM_USER% -s /bin/bash -c "LANG='+LANG+' DBUS_SESSION_BUS_ADDRESS='+bus_adrress+' DBUS_SESSION_BUS_PID='+bus_pid+' set_gdm -n SCREENSAVER_PICTURE -v '+"'"+str(SCREENSAVER_PICTURE)+"'"+'"',shell=True)
+			return True
+		else :
+			return False
+
+	@dbus.service.method('apps.nano77.gdm3setup','','b',sender_keyword='sender', connection_keyword='connexion')
+	def GetWaylandEnable(self,sender=None, connexion=None):
+		WaylandEnable = str_to_bool(GetConfValue("WaylandEnable","true"))
+		return WaylandEnable
+
+	@dbus.service.method('apps.nano77.gdm3setup','b','b',sender_keyword='sender', connection_keyword='connexion')
+	def SetWaylandEnable(self,WAYLAND_ENABLE,sender=None, connexion=None):
+		if self.policykit_test(sender,connexion,'apps.nano77.gdm3setup.set') :
+			if WAYLAND_ENABLE :
+				subprocess.call("/usr/bin/gdmwayland -e",shell=True)
+			else :
+				subprocess.call("/usr/bin/gdmwayland -d",shell=True)
 			return True
 		else :
 			return False

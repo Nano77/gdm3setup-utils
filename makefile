@@ -3,23 +3,27 @@ all:
 	sed -e 's/%PYTHON%/python2/;s/%GDM_CONF%/\/etc\/gdm\/custom.conf/' gdmlogin.in > gdmlogin
 	sed -e 's/%GDM_BIN%/\/usr\/sbin\/gdm/' get_gdm.in > get_gdm
 	sed -e 's/%PYTHON%/python2/' gdmshelltheme.in > gdmshelltheme
+	sed -e 's/%PYTHON%/python2/' gdmwayland.in > gdmwayland
 
 ubuntu:
 	sed -e 's/%PYTHON%/python/;s/%GDM_BIN%/\/usr\/sbin\/gdm/;s/%GDM_CONF%/\/etc\/gdm\/custom.conf/;s/%GDM_USER%/gdm/' gdm3setup-daemon.in > gdm3setup-daemon
 	sed -e 's/%PYTHON%/python/;s/%GDM_CONF%/\/etc\/gdm\/custom.conf/' gdmlogin.in > gdmlogin
 	sed -e 's/%GDM_BIN%/\/usr\/sbin\/gdm/' get_gdm.in > get_gdm
 	sed -e 's/%PYTHON%/python/' gdmshelltheme.in > gdmshelltheme
+	sed -e 's/%PYTHON%/python/' gdmwayland.in > gdmwayland
 
 debian:
 	sed -e 's/%PYTHON%/python/;s/%GDM_BIN%/\/usr\/sbin\/gdm3/;s/%GDM_CONF%/\/etc\/gdm3\/custom.conf/;s/%GDM_USER%/Debian-gdm/' gdm3setup-daemon.in > gdm3setup-daemon
 	sed -e 's/%PYTHON%/python/;s/%GDM_CONF%/\/etc\/gdm3\/custom.conf/' gdmlogin.in > gdmlogin
 	sed -e 's/%GDM_BIN%/\/usr\/sbin\/gdm3/' get_gdm.in > get_gdm
 	sed -e 's/%PYTHON%/python/' gdmshelltheme.in > gdmshelltheme
+	sed -e 's/%PYTHON%/python/' gdmwayland.in > gdmwayland
 
 clean:
 	rm gdm3setup-daemon
 	rm gdmlogin
 	rm gdmshelltheme
+	rm gdmwayland
 	rm get_gdm
 
 install-common:
@@ -27,6 +31,7 @@ install-common:
 	install --mode=755 -D start-gdm3setup-daemon $(DESTDIR)/usr/bin/
 	install --mode=755 -D gdmlogin $(DESTDIR)/usr/bin/
 	install --mode=755 -D gdmshelltheme $(DESTDIR)/usr/bin/
+	install --mode=755 -D gdmwayland $(DESTDIR)/usr/bin/
 	install --mode=755 -D get_gdm $(DESTDIR)/usr/bin/
 	install --mode=755 -D set_gdm $(DESTDIR)/usr/bin/
 	install -D apps.nano77.gdm3setup.service $(DESTDIR)/usr/share/dbus-1/system-services/apps.nano77.gdm3setup.service
@@ -39,6 +44,7 @@ uninstall-common:
 	rm $(DESTDIR)/usr/bin/start-gdm3setup-daemon
 	rm $(DESTDIR)/usr/bin/gdmlogin
 	rm $(DESTDIR)/usr/bin/gdmshelltheme
+	rm $(DESTDIR)/usr/bin/gdmwayland
 	rm $(DESTDIR)/usr/bin/get_gdm
 	rm $(DESTDIR)/usr/bin/set_gdm
 	rm $(DESTDIR)/usr/share/dbus-1/system-services/apps.nano77.gdm3setup.service 
