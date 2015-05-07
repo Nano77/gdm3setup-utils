@@ -44,6 +44,8 @@ GetLockScreenBackground = proxy.get_dbus_method('GetLockScreenBackground', 'apps
 SetLockScreenBackground = proxy.get_dbus_method('SetLockScreenBackground', 'apps.nano77.gdm3setup')
 SetWaylandEnable = proxy.get_dbus_method('SetWaylandEnable', 'apps.nano77.gdm3setup')
 GetWaylandEnable = proxy.get_dbus_method('GetWaylandEnable', 'apps.nano77.gdm3setup')
+SetTapToClick = proxy.get_dbus_method('SetTapToClick', 'apps.nano77.gdm3setup')
+GetTapToClick = proxy.get_dbus_method('GetTapToClick', 'apps.nano77.gdm3setup')
 StopDaemon = proxy.get_dbus_method('StopDaemon', 'apps.nano77.gdm3setup')
 
 SetAutoLoginState = proxy.get_dbus_method('SetAutoLoginState', 'apps.nano77.gdm3setup')

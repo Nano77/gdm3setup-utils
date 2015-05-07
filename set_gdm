@@ -143,6 +143,10 @@ else
 				echo "$parameter_name = $parameter_value"
 				gsettings set org.gnome.desktop.screensaver picture-uri "$parameter_value"
 				;;
+			TAP_TO_CLICK)
+				echo "$parameter_name = $parameter_value"
+				gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click "$parameter_value"
+				;;
 			*)
 				echo "Uknown GDM3 Parameter !"
 				;;
