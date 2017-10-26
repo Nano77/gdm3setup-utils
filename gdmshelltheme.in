@@ -7,14 +7,15 @@ import shutil
 
 def Get_Shell_theme():
 	shell_theme = 'Adwaita'
-	ifile = file('/usr/share/gnome-shell/theme/gnome-shell.css',"r")
-	lines = ifile.readlines()
-	for i in range(len(lines)) :
-		line = lines[i].strip()
-		if line[0:2] == "/*" and line[len(line)-2:len(line)] == "*/" :
-			comment = line[2:len(line)-2]
-			if comment[0:6] == "theme=" :
-				shell_theme = comment[6:len(comment)]
+	if os.path.isfile('/usr/share/gnome-shell/theme/gnome-shell.css'): 
+		ifile = file('/usr/share/gnome-shell/theme/gnome-shell.css',"r")
+		lines = ifile.readlines()
+		for i in range(len(lines)) :
+			line = lines[i].strip()
+			if line[0:2] == "/*" and line[len(line)-2:len(line)] == "*/" :
+				comment = line[2:len(line)-2]
+				if comment[0:6] == "theme=" :
+					shell_theme = comment[6:len(comment)]
 
 	return shell_theme
 
